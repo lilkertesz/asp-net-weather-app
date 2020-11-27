@@ -9,7 +9,7 @@ using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Services
 {
-    public class AutocompleteService
+    public class AutocompleteService : IAutocompleteService
     {
         const string API_KEY = "jzxwrjVpz590MChJ0KjlrLnwg_syikNAPYB0tvSemLE";
 
@@ -17,7 +17,7 @@ namespace WeatherApp.WebSite.Services
         {
             WebHostEnvironment = webHostEnvironment;
         }
-        
+
         public IWebHostEnvironment WebHostEnvironment { get; }
 
         public IEnumerable<Location> GetSuggestions(string query)

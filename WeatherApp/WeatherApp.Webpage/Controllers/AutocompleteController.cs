@@ -13,9 +13,9 @@ namespace WeatherApp.WebSite.Controllers
     [Route("api/[controller]")]
     public class AutocompleteController : ControllerBase
     {
-        private readonly AutocompleteService _autocompleteService;
+        private readonly IAutocompleteService _autocompleteService;
 
-        public AutocompleteController(AutocompleteService autocompleteService)
+        public AutocompleteController(IAutocompleteService autocompleteService)
         {
             _autocompleteService = autocompleteService;
         }
