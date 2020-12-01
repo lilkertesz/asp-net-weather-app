@@ -3,31 +3,26 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Services
 {
     public class AutocompleteService : IAutocompleteService
     {
-        
         public IWebHostEnvironment WebHostEnvironment { get; }
-        private IConfiguration Configuration { get; }
-        public string API_KEY { get; set; }
+        readonly string apiKey;
 
         public AutocompleteService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
-            Configuration = configuration;
-            API_KEY = Configuration.GetValue<string>("ApiKeys:Autocomplete");
+            apiKey = configuration.GetValue<string>("ApiKeys:Autocomplete");
         }
 
         public IEnumerable<Location> GetSuggestions(string query)
         {
             string jsonString = "";
-            string url = $"https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?query={query}&maxresults=5&resultType=city&language=en&apikey={API_KEY}";
+            string url = $"https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?query={query}&maxresults=5&resultType=city&language=en&apikey={apiKey}";
 
             using (var client = new HttpClient())
             {
@@ -47,21 +42,21 @@ namespace WeatherApp.WebSite.Services
             }
 
             var json = JObject.Parse(jsonString);
-            ISet<Location> suggestionList = new HashSet<Location>();
-            var jsonSuggestion = json.GetValue("suggestions");
+            var jsonSuggestions = json.GetValue("suggestions");
 
-            foreach (var element in jsonSuggestion)
+            ISet<Location> locations = new HashSet<Location>();
+            foreach (var suggestion in jsonSuggestions)
             {
-                var locationSuggestion = new Location()
+                var location = new Location()
                 {
-                    City = (string)element["address"]["city"],
-                    State = (string)element["address"]["state"],
-                    Country = (string)element["address"]["country"],
-                    CountryCode = (string)element["countryCode"]
+                    City =        (string)suggestion["address"]["city"],
+                    State =       (string)suggestion["address"]["state"],
+                    Country =     (string)suggestion["address"]["country"],
+                    CountryCode = (string)suggestion["countryCode"]
                 };
-                suggestionList.Add(locationSuggestion);
+                locations.Add(location);
             }
-            return suggestionList;
+            return locations;
         }
     }
 }

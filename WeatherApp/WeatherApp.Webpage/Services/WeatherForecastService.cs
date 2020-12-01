@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,18 @@ namespace WeatherApp.WebSite.Services
 {
     public class WeatherForecastService : IWeatherForecastService
     {
-        const string API_KEY = "3c850b0463346d2fffad82b66d5eb561";
+        public IWebHostEnvironment WebHostEnvironment { get; }
+        readonly string apiKey;
 
-        public WeatherForecastService(IWebHostEnvironment webHostEnvironment)
+        public WeatherForecastService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
+            apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
         }
-
-        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public IList<WeatherForecast> GetForecasts(string city)
         {
-            string url = $"https://api.openweathermap.org/data/2.5/forecast?appid={API_KEY}&units=metric&q={city}";
+            string url = $"https://api.openweathermap.org/data/2.5/forecast?appid={apiKey}&units=metric&q={city}";
             string jsonString = "";
 
             using (var client = new HttpClient())
@@ -41,25 +42,23 @@ namespace WeatherApp.WebSite.Services
             }
 
             var json = JObject.Parse(jsonString).GetValue("list");
-            List<WeatherForecast> forecasts = new List<WeatherForecast>();
 
+            IList<WeatherForecast> forecasts = new List<WeatherForecast>();
             foreach (var token in json)
             {
                 var weatherForecast = new WeatherForecast
                 {
-                    ExactDate = Convert.ToInt64(token["dt"]),
-                    Date = Convert.ToString(token["dt_txt"]),
-                    Description = Convert.ToString(token["weather"][0]["description"]),
-                    Temp = Convert.ToDouble(token["main"]["temp"]),
-                    Pressure = Convert.ToInt32(token["main"]["pressure"]),
-                    Humidity = Convert.ToInt32(token["main"]["humidity"]),
-                    Wind = Convert.ToDouble(token["wind"]["speed"]),
-                    Icon = Convert.ToString(token["weather"][0]["icon"]),
+                    ExactDate =   (int)token["dt"],
+                    Date =        (string)token["dt_txt"],
+                    Description = (string)token["weather"][0]["description"],
+                    Temp =        (double)token["main"]["temp"],
+                    Pressure =    (int)token["main"]["pressure"],
+                    Humidity =    (int)token["main"]["humidity"],
+                    Wind =        (double)token["wind"]["speed"],
+                    Icon =        (string)token["weather"][0]["icon"],
                 };
-
                 forecasts.Add(weatherForecast);
             }
-
             return forecasts;
         }
     }

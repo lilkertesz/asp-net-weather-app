@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WeatherApp.WebSite.Models;
+﻿using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Services.Interfaces
 {
