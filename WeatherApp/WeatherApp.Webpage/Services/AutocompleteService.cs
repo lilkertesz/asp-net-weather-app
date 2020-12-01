@@ -11,19 +11,22 @@ namespace WeatherApp.WebSite.Services
     public class AutocompleteService : IAutocompleteService
     {
         public IWebHostEnvironment WebHostEnvironment { get; }
-        readonly string apiKey;
+        readonly string _apiKey;
+        readonly string _baseUrl;
 
         public AutocompleteService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
-            apiKey = configuration.GetValue<string>("ApiKeys:Autocomplete");
+            _apiKey = configuration.GetValue<string>("ApiKeys:Autocomplete");
+            _baseUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
         }
 
         public IEnumerable<Location> GetSuggestions(string query)
         {
-            string jsonString = "";
-            string url = $"https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?query={query}&maxresults=5&resultType=city&language=en&apikey={apiKey}";
+            string urlParameters = $"apikey={_apiKey}&query={query}&maxresults=5&resultType=city&language=en";
+            string url = _baseUrl + urlParameters;
 
+            string jsonString = "";
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);

@@ -11,19 +11,22 @@ namespace WeatherApp.WebSite.Services
     public class CurrentWeatherService : ICurrentWeatherService
     {
         public IWebHostEnvironment WebHostEnvironment { get; }
-        readonly string apiKey;
+        readonly string _apiKey;
+        readonly string _baseUrl;
 
         public CurrentWeatherService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
-            apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
+            _apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
+            _baseUrl = configuration.GetValue<string>("ApiBaseUrls:CurrentWeather");
         }
 
         public CurrentWeather GetCurrentWeather(string city)
         {
-            string jsonString = "";
-            string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric";
+            string urlParameters = $"appid={_apiKey}&q={city}&units=metric";
+            string url = _baseUrl + urlParameters;
 
+            string jsonString = "";
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -42,6 +45,7 @@ namespace WeatherApp.WebSite.Services
             }
 
             var json = JObject.Parse(jsonString);
+
             var currentWeather = new CurrentWeather()
             {
                 ID =          (long)json.GetValue("id"),

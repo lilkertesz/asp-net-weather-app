@@ -11,19 +11,22 @@ namespace WeatherApp.WebSite.Services
     public class WeatherForecastService : IWeatherForecastService
     {
         public IWebHostEnvironment WebHostEnvironment { get; }
-        readonly string apiKey;
+        readonly string _apiKey;
+        readonly string _baseUrl;
 
         public WeatherForecastService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
-            apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
+            _apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
+            _baseUrl = configuration.GetValue<string>("ApiBaseUrls:WeatherForecast");
         }
 
         public IList<WeatherForecast> GetForecasts(string city)
         {
-            string url = $"https://api.openweathermap.org/data/2.5/forecast?appid={apiKey}&units=metric&q={city}";
-            string jsonString = "";
+            string urlParameters = $"appid={_apiKey}&q={city}&units=metric";
+            string url = _baseUrl + urlParameters;
 
+            string jsonString = "";
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
