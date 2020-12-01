@@ -11,9 +11,9 @@ namespace WeatherApp.WebSite.Controllers
     [ApiController]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly WeatherForecastService _weatherForecastService;
+        private readonly IWeatherForecastService _weatherForecastService;
 
-        public WeatherForecastController(WeatherForecastService weatherForecastService)
+        public WeatherForecastController(IWeatherForecastService weatherForecastService)
         {
             _weatherForecastService = weatherForecastService;
         }

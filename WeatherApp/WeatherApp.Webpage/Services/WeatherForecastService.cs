@@ -7,7 +7,7 @@ using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Services
 {
-    public class WeatherForecastService
+    public class WeatherForecastService : IWeatherForecastService
     {
         const string API_KEY = "3c850b0463346d2fffad82b66d5eb561";
 
@@ -43,7 +43,7 @@ namespace WeatherApp.WebSite.Services
             var json = JObject.Parse(jsonString).GetValue("list");
             List<WeatherForecast> forecasts = new List<WeatherForecast>();
 
-            foreach(var token in json)
+            foreach (var token in json)
             {
                 var weatherForecast = new WeatherForecast
                 {
