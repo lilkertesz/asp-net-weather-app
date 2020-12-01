@@ -10,7 +10,7 @@ using WeatherApp.WebSite.Services.Interfaces;
 namespace WeatherApp.WebSite
 {
     [TestFixture]
-    public class Tests
+    public class CurrentWeatherControllerTest
     {
         private CurrentWeatherController _currentWeatherController;
         private ICurrentWeatherService _currentWeatherService;
