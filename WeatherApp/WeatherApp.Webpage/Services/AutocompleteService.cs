@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,17 @@ namespace WeatherApp.WebSite.Services
 {
     public class AutocompleteService : IAutocompleteService
     {
-        const string API_KEY = "jzxwrjVpz590MChJ0KjlrLnwg_syikNAPYB0tvSemLE";
+        
+        public IWebHostEnvironment WebHostEnvironment { get; }
+        private IConfiguration Configuration { get; }
+        public string API_KEY { get; set; }
 
-        public AutocompleteService(IWebHostEnvironment webHostEnvironment)
+        public AutocompleteService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
             WebHostEnvironment = webHostEnvironment;
+            Configuration = configuration;
+            API_KEY = Configuration.GetValue<string>("ApiKeys:Autocomplete");
         }
-
-        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public IEnumerable<Location> GetSuggestions(string query)
         {
