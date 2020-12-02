@@ -8,29 +8,28 @@ namespace WeatherApp.WebSite.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FavoriteController : ControllerBase
+    public class FavoritesController : ControllerBase
     {
         readonly ICurrentWeatherService _currentWeatherService;
-        FavoriteContext _context;
+        IFavoritesRepository _favoritesRepository;
 
-        public FavoriteController(ICurrentWeatherService currentWeatherService, FavoriteContext favoriteContext)
+        public FavoritesController(ICurrentWeatherService currentWeatherService, IFavoritesRepository favoritesRepository)
         {
             _currentWeatherService = currentWeatherService;
-            _context = favoriteContext;
+            _favoritesRepository = favoritesRepository;
         }
         
         [HttpPost("{city}")]
-        public CurrentWeather Post(string city)
+        public void Post(string city)
         {
-            _context.FavoriteSet.Add(city);
-            return _currentWeatherService.GetCurrentWeather(city);
+            _favoritesRepository.Create(city);
         }
         
-        [HttpGet("favorites")]
+        [HttpGet("cities")]
         public CurrentWeather[] GetFavorites()
         {
-            ISet<CurrentWeather> favorites = new HashSet<CurrentWeather>();
-            foreach (var city in _context.FavoriteSet)
+            IList<CurrentWeather> favorites = new List<CurrentWeather>();
+            foreach (var city in _favoritesRepository.Read())
             {
                 favorites.Add(_currentWeatherService.GetCurrentWeather(city));
             }

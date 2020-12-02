@@ -2,7 +2,7 @@
 {
     public class CurrentWeather
     {
-        public long ID { get; set; }
+        public long CityId { get; set; }
         public string City { get; set; }
         public string Description { get; set; }
         public double Temp { get; set; }

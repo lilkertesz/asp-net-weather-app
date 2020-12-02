@@ -48,7 +48,7 @@ namespace WeatherApp.WebSite.Services
 
             var currentWeather = new CurrentWeather()
             {
-                ID =          (long)json.GetValue("id"),
+                CityId =      (long)json.GetValue("id"),
                 City =        (string)json.GetValue("name"),
                 Description = (string)json["weather"][0]["description"],
                 Icon =        (string)json["weather"][0]["icon"],

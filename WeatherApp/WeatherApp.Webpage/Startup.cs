@@ -35,7 +35,8 @@ namespace WeatherApp.WebSite
             services.AddTransient<ICurrentWeatherService, CurrentWeatherService>();
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddTransient<IAutocompleteService, AutocompleteService>();
-            services.AddSingleton<FavoriteContext, FavoriteContext>();
+            //services.AddSingleton<InMemoryFavorites, InMemoryFavorites>();
+            services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
             services.AddControllers();
         }
 
