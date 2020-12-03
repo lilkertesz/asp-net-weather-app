@@ -24,7 +24,13 @@ namespace WeatherApp.WebSite.Controllers
         {
             _favoritesRepository.Create(city);
         }
-        
+
+        [HttpDelete("{city}")]
+        public void Delete(string city)
+        {
+            _favoritesRepository.Delete(city);
+        }
+
         [HttpGet("cities")]
         public CurrentWeather[] GetFavorites()
         {
