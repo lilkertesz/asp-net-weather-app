@@ -26,7 +26,7 @@ namespace WeatherApp.WebSite.Controllers
             var observations = _observationRepository.Read();
             var observationsByCity =
                 from observation in observations
-                where observation.City.ToLower().Equals(city)
+                where observation.City.Equals(city)
                 select observation;
 
             return observationsByCity.ToArray();
