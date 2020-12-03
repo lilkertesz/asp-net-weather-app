@@ -13,8 +13,8 @@ namespace WeatherApp.WebSite.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Location>().HasData(
-                new Observation
+            modelBuilder.Entity<Observation>().HasData(
+            new Observation
                 {
                     ID = 1,
                     City = "Budapest",
