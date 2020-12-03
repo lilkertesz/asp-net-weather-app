@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using WeatherApp.WebSite.Models;
 using WeatherApp.WebSite.Services;
 using WeatherApp.WebSite.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace WeatherApp.WebSite
 {
@@ -38,6 +39,8 @@ namespace WeatherApp.WebSite
             //services.AddSingleton<InMemoryFavorites, InMemoryFavorites>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
             services.AddControllers();
+            services.AddDbContextPool<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
