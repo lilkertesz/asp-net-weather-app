@@ -36,8 +36,8 @@ namespace WeatherApp.WebSite
             services.AddTransient<ICurrentWeatherService, CurrentWeatherService>();
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddTransient<IAutocompleteService, AutocompleteService>();
-            //services.AddSingleton<InMemoryFavorites, InMemoryFavorites>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
+            services.AddSingleton<IObservationRepository, InMemoryObservationsRepository>();
             services.AddControllers();
             services.AddDbContextPool<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));

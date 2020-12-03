@@ -31,12 +31,7 @@ namespace WeatherApp.WebSite.Models
 
         public void Create(Observation observation)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(long observationId)
-        {
-            throw new NotImplementedException();
+            _observations.Add(observation);
         }
 
         public ICollection<Observation> Read()
@@ -44,6 +39,13 @@ namespace WeatherApp.WebSite.Models
             return _observations;
         }
 
+        // TODO
+        public void Delete(long observationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        // TODO
         public void Update(long observationId)
         {
             throw new NotImplementedException();

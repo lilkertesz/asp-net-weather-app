@@ -14,10 +14,24 @@ namespace WeatherApp.WebSite.Controllers
             _observationRepository = observationRepository;
         }
 
-        [HttpGet("{city}")]
-        public Observation[] GetObservationsByCity()
+        [HttpGet("observations")]
+        public Observation[] GetAllObservations()
         {
             return _observationRepository.Read().ToArray();
         }
+
+        [HttpGet("{city}")]
+        public Observation[] GetObservationsByCity(string city)
+        {
+            var observations = _observationRepository.Read();
+            var observationsByCity =
+                from observation in observations
+                where observation.City.ToLower().Equals(city)
+                select observation;
+
+            return observationsByCity.ToArray();
+        }
+
+        // TODO post, put, delete http requests
     }
 }
