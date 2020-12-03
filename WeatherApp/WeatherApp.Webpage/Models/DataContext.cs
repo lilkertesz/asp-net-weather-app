@@ -8,7 +8,11 @@ namespace WeatherApp.WebSite.Models
         {
         }
 
-        public DbSet<string> FavoriteCities { get; set; }
+        //public DbSet<Location> FavoriteCities { get; set; }
 
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Location>().HasData()
+        //}
     }
 }
