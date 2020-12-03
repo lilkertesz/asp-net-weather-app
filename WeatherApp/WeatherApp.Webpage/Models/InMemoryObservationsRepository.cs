@@ -34,7 +34,7 @@ namespace WeatherApp.WebSite.Models
             _observations.Add(observation);
         }
 
-        public ICollection<Observation> Read()
+        public IEnumerable<Observation> Read()
         {
             return _observations;
         }
