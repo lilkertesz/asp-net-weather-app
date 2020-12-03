@@ -8,8 +8,7 @@ namespace WeatherApp.WebSite.Models
         {
         }
 
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<CurrentWeather> CurrentWeathers { get; set; }
-        public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+        public DbSet<string> FavoriteCities { get; set; }
+
     }
 }
