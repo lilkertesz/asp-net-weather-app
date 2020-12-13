@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WeatherApp.WebSite.Models
 {
@@ -11,22 +12,22 @@ namespace WeatherApp.WebSite.Models
         {
             _context = context;
         }
-        public void Create(Observation observation)
+        public async Task Create(Observation observation)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(long observationId)
+        public async Task Delete(long observationId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Observation> Read()
+        public async Task<IEnumerable<Observation>> Read()
         {
             return _context.Observations;
         }
 
-        public void Update(long observationId)
+        public async Task Update(long observationId)
         {
             throw new NotImplementedException();
         }

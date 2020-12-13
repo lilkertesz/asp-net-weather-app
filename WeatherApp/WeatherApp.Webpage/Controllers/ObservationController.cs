@@ -22,15 +22,16 @@ namespace WeatherApp.WebSite.Controllers
         public object Observation { get; private set; }
 
         [HttpGet("observations")]
-        public Observation[] GetAllObservations()
+        public async Task<IEnumerable<Observation>> GetAllObservations()
         {
-            return _observationRepository.Read().ToArray();
+            var bob = await _observationRepository.Read();
+            return bob;
         }
 
         [HttpGet("{city}")]
-        public Observation[] GetObservationsByCity(string city)
+        public async Task<IEnumerable<Observation>> GetObservationsByCity(string city)
         {
-            var observations = _observationRepository.Read();
+            var observations = await _observationRepository.Read();
             var observationsByCity =
                 from observation in observations
                 where observation.City.Equals(city)

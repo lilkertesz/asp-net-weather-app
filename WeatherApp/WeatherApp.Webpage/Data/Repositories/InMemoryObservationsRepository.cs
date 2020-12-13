@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WeatherApp.WebSite.Models
 {
@@ -33,27 +34,27 @@ namespace WeatherApp.WebSite.Models
             }
         };
 
-        public void Create(Observation observation)
+        public async Task Create(Observation observation)
         {
             long newID = _observations.Select(observation => observation.ID).Max() + 1;
             observation.ID = newID;
 
-            _observations.Add(observation);
+            await Task.Run(() => _observations.Add(observation));
         }
 
-        public IEnumerable<Observation> Read()
+        public async Task<IEnumerable<Observation>> Read()
         {
             return _observations;
         }
 
         // TODO
-        public void Delete(long observationId)
+        public async Task Delete(long observationId)
         {
             throw new NotImplementedException();
         }
 
         // TODO
-        public void Update(long observationId)
+        public async Task Update(long observationId)
         {
             throw new NotImplementedException();
         }
