@@ -3,9 +3,9 @@ using System;
 
 namespace WeatherApp.WebSite.Models
 {
-    public class DataContext : DbContext
+    public class ObservationsContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public ObservationsContext(DbContextOptions<ObservationsContext> options) : base(options)
         {
         }
 

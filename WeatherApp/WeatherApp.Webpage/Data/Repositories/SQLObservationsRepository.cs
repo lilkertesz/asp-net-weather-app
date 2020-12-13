@@ -5,9 +5,9 @@ namespace WeatherApp.WebSite.Models
 {
     public class SQLObservationsRepository : IObservationRepository
     {
-        private readonly DataContext _context;
+        private readonly ObservationsContext _context;
 
-        public SQLObservationsRepository(DataContext context)
+        public SQLObservationsRepository(ObservationsContext context)
         {
             _context = context;
         }

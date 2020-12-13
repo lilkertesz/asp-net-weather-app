@@ -8,7 +8,7 @@ using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ObservationsContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

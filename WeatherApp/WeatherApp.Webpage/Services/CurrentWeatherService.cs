@@ -10,13 +10,11 @@ namespace WeatherApp.WebSite.Services
 {
     public class CurrentWeatherService : ICurrentWeatherService
     {
-        public IWebHostEnvironment WebHostEnvironment { get; }
         readonly string _apiKey;
         readonly string _baseUrl;
 
-        public CurrentWeatherService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
+        public CurrentWeatherService(IConfiguration configuration)
         {
-            WebHostEnvironment = webHostEnvironment;
             _apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
             _baseUrl = configuration.GetValue<string>("ApiBaseUrls:CurrentWeather");
         }

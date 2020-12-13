@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WeatherApp.WebSite.Models
 {
     public class InMemoryObservationsRepository : IObservationRepository
     {
-        IList<Observation> _observations = new List<Observation>() {
-            new Observation{
+        readonly IList<Observation> _observations = new List<Observation>() {
+            new Observation
+            {
                 ID = 1,
                 City = "Budapest",
                 TimeStamp = new DateTime(2020, 11, 14, 9, 28, 0),
                 UserName = "User",
                 Description = "It is very hot and sunny here"
             },
-            new Observation{
+            new Observation
+            {
                 ID = 2,
                 City = "Budapest",
                 TimeStamp = new DateTime(2020, 10, 14, 9, 28, 0),
                 UserName = "Jane",
                 Description = "Freezing cold"
             },
-            new Observation{
+            new Observation
+            {
                 ID = 3,
                 City = "Madrid",
                 TimeStamp = new DateTime(2020, 6, 14, 9, 28, 0),
@@ -31,6 +35,9 @@ namespace WeatherApp.WebSite.Models
 
         public void Create(Observation observation)
         {
+            long newID = _observations.Select(observation => observation.ID).Max() + 1;
+            observation.ID = newID;
+
             _observations.Add(observation);
         }
 

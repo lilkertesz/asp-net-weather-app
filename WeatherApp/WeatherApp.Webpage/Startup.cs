@@ -33,13 +33,13 @@ namespace WeatherApp.WebSite
                                   });
             });
 
-            services.AddTransient<ICurrentWeatherService, CurrentWeatherService>();
-            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
-            services.AddTransient<IAutocompleteService, AutocompleteService>();
+            services.AddSingleton<ICurrentWeatherService, CurrentWeatherService>();
+            services.AddSingleton<IWeatherForecastService, WeatherForecastService>();
+            services.AddSingleton<IAutocompleteService, AutocompleteService>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
-            services.AddTransient<IObservationRepository, SQLObservationsRepository>();
+            services.AddSingleton<IObservationRepository, InMemoryObservationsRepository>();
             services.AddControllers();
-            services.AddDbContextPool<DataContext>(options =>
+            services.AddDbContextPool<ObservationsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));
         }
 

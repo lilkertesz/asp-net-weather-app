@@ -10,13 +10,11 @@ namespace WeatherApp.WebSite.Services
 {
     public class AutocompleteService : IAutocompleteService
     {
-        public IWebHostEnvironment WebHostEnvironment { get; }
         readonly string _apiKey;
         readonly string _baseUrl;
 
-        public AutocompleteService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
+        public AutocompleteService(IConfiguration configuration)
         {
-            WebHostEnvironment = webHostEnvironment;
             _apiKey = configuration.GetValue<string>("ApiKeys:Autocomplete");
             _baseUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
         }

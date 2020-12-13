@@ -9,7 +9,7 @@ using WeatherApp.WebSite.Models;
 
 namespace WeatherApp.WebSite.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ObservationsContext))]
     [Migration("20201203135742_InitialCreate")]
     partial class InitialCreate
     {
