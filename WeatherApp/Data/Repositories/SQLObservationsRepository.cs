@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WeatherApp.WebSite.Models
+namespace WeatherApp.Models
 {
     public class SQLObservationsRepository : IObservationRepository
     {

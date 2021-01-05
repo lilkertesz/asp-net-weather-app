@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace WeatherApp.WebSite.Models
+namespace WeatherApp.Models
 {
     public class InMemoryFavoritesRepository : IFavoritesRepository
     {

@@ -1,6 +1,6 @@
-﻿using WeatherApp.WebSite.Models;
+﻿using WeatherApp.Models;
 
-namespace WeatherApp.WebSite.Services.Interfaces
+namespace WeatherApp.Services.Interfaces
 {
     public interface ICurrentWeatherService
     {

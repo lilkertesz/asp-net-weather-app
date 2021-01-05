@@ -1,4 +1,4 @@
-﻿namespace WeatherApp.WebSite.Models
+﻿namespace WeatherApp.Models
 {
     public class WeatherForecast
     {

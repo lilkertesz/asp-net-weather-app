@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WeatherApp.WebSite.Migrations
+namespace WeatherApp.Migrations
 {
     public partial class InitialCreate : Migration
     {

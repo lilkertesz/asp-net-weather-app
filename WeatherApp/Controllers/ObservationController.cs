@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeatherApp.WebSite.Models;
+using WeatherApp.Models;
 
-namespace WeatherApp.WebSite.Controllers
+namespace WeatherApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

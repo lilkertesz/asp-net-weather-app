@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WeatherApp.WebSite.Models;
+using WeatherApp.Models;
 
-namespace WeatherApp.WebSite.Migrations
+namespace WeatherApp.Migrations
 {
     [DbContext(typeof(ObservationsContext))]
     partial class DataContextModelSnapshot : ModelSnapshot

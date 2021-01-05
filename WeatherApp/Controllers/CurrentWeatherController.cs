@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WeatherApp.WebSite.Models;
-using WeatherApp.WebSite.Services.Interfaces;
+using WeatherApp.Models;
+using WeatherApp.Services.Interfaces;
 
-namespace WeatherApp.WebSite.Controllers
+namespace WeatherApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

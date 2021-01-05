@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WeatherApp.WebSite.Models;
+using WeatherApp.Models;
 
-namespace WeatherApp.WebSite.Services
+namespace WeatherApp.Services
 {
     public interface IWeatherForecastService
     {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WeatherApp.WebSite.Models;
+using WeatherApp.Models;
 
-namespace WeatherApp.WebSite.Migrations
+namespace WeatherApp.Migrations
 {
     [DbContext(typeof(ObservationsContext))]
     [Migration("20201203135742_InitialCreate")]

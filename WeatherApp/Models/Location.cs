@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherApp.WebSite.Models
+namespace WeatherApp.Models
 {
     public class Location
     {

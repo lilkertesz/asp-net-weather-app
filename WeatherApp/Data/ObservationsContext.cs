@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace WeatherApp.WebSite.Models
+namespace WeatherApp.Models
 {
     public class ObservationsContext : DbContext
     {
