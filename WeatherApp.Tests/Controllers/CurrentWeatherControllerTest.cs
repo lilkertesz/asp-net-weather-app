@@ -2,12 +2,12 @@ using NSubstitute;
 using NSubstitute.Core.Arguments;
 using NUnit.Framework;
 using System.Threading.Tasks;
-using WeatherApp.WebSite.Controllers;
-using WeatherApp.WebSite.Models;
-using WeatherApp.WebSite.Services;
-using WeatherApp.WebSite.Services.Interfaces;
+using WeatherApp.Controllers;
+using WeatherApp.Models;
+using WeatherApp.Services;
+using WeatherApp.Services.Interfaces;
 
-namespace WeatherApp.WebSite
+namespace WeatherApp.Tests.Controllers
 {
     [TestFixture]
     public class CurrentWeatherControllerTest
