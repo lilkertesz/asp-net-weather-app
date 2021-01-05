@@ -1,10 +1,9 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using WeatherApp.Controllers;
 using WeatherApp.Models;
-using WeatherApp.Services;
+using WeatherApp.Services.Interfaces;
 
 namespace WeatherApp.Tests.Controllers
 {
@@ -22,7 +21,7 @@ namespace WeatherApp.Tests.Controllers
         }
 
         [Test]
-        public async Task GetSuggestionsTest()
+        public void GetSuggestionsTest()
         {
             string input = "bud";
 
@@ -41,7 +40,7 @@ namespace WeatherApp.Tests.Controllers
 
             _autocompleteService.GetSuggestions(input).Returns(suggestionList);
 
-            var result = await _autocompleteController.Get(input);
+            var result = _autocompleteController.Get(input);
 
             Assert.AreEqual(result, suggestionList);
         }
