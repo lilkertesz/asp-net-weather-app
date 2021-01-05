@@ -11,20 +11,19 @@ namespace WeatherApp.Services
     public class AutocompleteService : IAutocompleteService
     {
         readonly string _apiKey;
-        readonly string _baseUrl;
+        readonly string _suggestionUrl;
+        readonly string _locationUrl;
 
         public AutocompleteService(IConfiguration configuration)
         {
             _apiKey = configuration["Autocomplete:ServiceApiKey"];
-            _baseUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
+            _suggestionUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
+            _locationUrl = configuration.GetValue<string>("ApiBaseUrls:LocationDetail");
         }
 
-        public IEnumerable<Location> GetSuggestions(string query)
+        private string GetRemoteData(string url)
         {
-            string urlParameters = $"apikey={_apiKey}&query={query}&maxresults=5&resultType=city&language=en";
-            string url = _baseUrl + urlParameters;
-
-            string jsonString = "";
+            string response = "";
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -36,12 +35,37 @@ namespace WeatherApp.Services
                 {
                     var readTask = result.Content.ReadAsStringAsync();
                     readTask.Wait();
-
-                    jsonString = readTask.Result;
+                    response = readTask.Result;
                 }
             }
+            return response;
+        }
 
-            var json = JObject.Parse(jsonString);
+        public Coordinate GetCoordinate(string locationId)
+        {
+            string urlParameters = $"apikey={_apiKey}&locationid={locationId}";
+            string url = _locationUrl + urlParameters;
+
+            string response = GetRemoteData(url);
+
+            JObject json = JObject.Parse(response);
+
+            return new Coordinate
+            {
+                Latitude = (double)json["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"],
+                Longitude = (double)json["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"],
+            };
+        }
+
+        public IEnumerable<Location> GetSuggestions(string query)
+        {
+            string urlParameters = $"apikey={_apiKey}&query={query}&maxresults=5&resultType=city&language=en";
+            string url = _suggestionUrl + urlParameters;
+
+            string response = GetRemoteData(url);
+
+            JObject json = JObject.Parse(response);
+
             var jsonSuggestions = json.GetValue("suggestions");
 
             ISet<Location> locations = new HashSet<Location>();
