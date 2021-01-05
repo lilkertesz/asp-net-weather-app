@@ -15,7 +15,7 @@ namespace WeatherApp.Services
 
         public AutocompleteService(IConfiguration configuration)
         {
-            _apiKey = configuration.GetValue<string>("ApiKeys:Autocomplete");
+            _apiKey = configuration["Autocomplete:ServiceApiKey"];
             _baseUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
         }
 

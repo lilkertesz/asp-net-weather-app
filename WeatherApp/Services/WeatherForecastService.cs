@@ -15,7 +15,7 @@ namespace WeatherApp.Services
 
         public WeatherForecastService(IConfiguration configuration)
         {
-            _apiKey = configuration.GetValue<string>("ApiKeys:WeatherForecast");
+            _apiKey = configuration["Weather:ServiceApiKey"];
             _baseUrl = configuration.GetValue<string>("ApiBaseUrls:WeatherForecast");
         }
 
