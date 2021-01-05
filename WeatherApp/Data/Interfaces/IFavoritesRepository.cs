@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeatherApp.Models
+namespace WeatherApp.Data.Interfaces
 {
     public interface IFavoritesRepository
     {

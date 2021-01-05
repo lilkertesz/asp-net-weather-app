@@ -7,6 +7,8 @@ using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using WeatherApp.Data.Interfaces;
+using WeatherApp.Data.Repositories;
 
 namespace WeatherApp
 {
@@ -21,7 +23,6 @@ namespace WeatherApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
@@ -33,8 +34,7 @@ namespace WeatherApp
                                   });
             });
 
-            services.AddSingleton<ICurrentWeatherService, CurrentWeatherService>();
-            services.AddSingleton<IWeatherForecastService, WeatherForecastService>();
+            services.AddSingleton<IWeatherService, WeatherService>();
             services.AddSingleton<IAutocompleteService, AutocompleteService>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
             services.AddSingleton<IObservationRepository, InMemoryObservationsRepository>();

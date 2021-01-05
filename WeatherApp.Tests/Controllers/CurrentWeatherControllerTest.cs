@@ -27,10 +27,10 @@ namespace WeatherApp.Tests.Controllers
         {
             string city = "Budapest";
 
-            _currentWeatherService.GetCurrentWeather(city).Returns(new CurrentWeather { City = city });
+            _currentWeatherService.GetCurrentWeather(city).Returns(new Weather { City = city });
 
             string expected = city;
-            CurrentWeather currentWeather = await _currentWeatherController.Get(city);
+            Weather currentWeather = await _currentWeatherController.Get(city);
             string actual = currentWeather.City;
 
             Assert.AreEqual(expected, actual);

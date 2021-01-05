@@ -11,14 +11,14 @@ namespace WeatherApp.Tests.Controllers
     [TestFixture]
     class WeatherForecastControllerTest
     {
-        private IWeatherForecastService _weatherForecastService;
-        private WeatherForecastController _weatherForecastController;
+        private IWeatherService _weatherForecastService;
+        private WeatherController _weatherForecastController;
 
 
         [SetUp]
         public void Setup()
         {
-            _weatherForecastService = Substitute.For<IWeatherForecastService>();
+            _weatherForecastService = Substitute.For<IWeatherService>();
             _weatherForecastController = new WeatherForecastController(_weatherForecastService);
         }
 

@@ -30,7 +30,7 @@ namespace WeatherApp.Tests.Controllers
 
             var location = new Location()
             {
-                ID = default,
+                LocationID = default,
                 City = "Budapest",
                 State = default,
                 Country = "Hungary",

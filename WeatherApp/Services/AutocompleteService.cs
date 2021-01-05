@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using WeatherApp.Models;
+using WeatherApp.Services.Interfaces;
 
 namespace WeatherApp.Services
 {
@@ -28,7 +28,6 @@ namespace WeatherApp.Services
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
-                //HTTP GET
                 var responseTask = client.GetAsync("");
                 responseTask.Wait();
 
@@ -50,9 +49,10 @@ namespace WeatherApp.Services
             {
                 var location = new Location()
                 {
-                    City =        (string)suggestion["address"]["city"],
-                    State =       (string)suggestion["address"]["state"],
-                    Country =     (string)suggestion["address"]["country"],
+                    LocationID = (string)suggestion["locationId"],
+                    City = (string)suggestion["address"]["city"],
+                    State = (string)suggestion["address"]["state"],
+                    Country = (string)suggestion["address"]["country"],
                     CountryCode = (string)suggestion["countryCode"]
                 };
                 locations.Add(location);

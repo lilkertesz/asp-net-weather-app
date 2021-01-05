@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using WeatherApp.Data.Interfaces;
 using WeatherApp.Models;
 using WeatherApp.Services.Interfaces;
 
@@ -10,10 +11,10 @@ namespace WeatherApp.Controllers
     [Route("api/[controller]")]
     public class FavoritesController : ControllerBase
     {
-        readonly ICurrentWeatherService _currentWeatherService;
+        readonly IWeatherService _currentWeatherService;
         IFavoritesRepository _favoritesRepository;
 
-        public FavoritesController(ICurrentWeatherService currentWeatherService, IFavoritesRepository favoritesRepository)
+        public FavoritesController(IWeatherService currentWeatherService, IFavoritesRepository favoritesRepository)
         {
             _currentWeatherService = currentWeatherService;
             _favoritesRepository = favoritesRepository;
@@ -32,12 +33,12 @@ namespace WeatherApp.Controllers
         }
 
         [HttpGet("cities")]
-        public CurrentWeather[] GetFavorites()
+        public Weather[] GetFavorites()
         {
-            IList<CurrentWeather> favorites = new List<CurrentWeather>();
+            IList<Weather> favorites = new List<Weather>();
             foreach (var city in _favoritesRepository.Read())
             {
-                favorites.Add(_currentWeatherService.GetCurrentWeather(city));
+                //favorites.Add(_currentWeatherService.GetCurrentWeather(city));
             }
             return favorites.ToArray();
         }

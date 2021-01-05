@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using WeatherApp.Models;
-using WeatherApp.Services;
+using WeatherApp.Services.Interfaces;
 
 namespace WeatherApp.Controllers
 {
@@ -18,9 +17,9 @@ namespace WeatherApp.Controllers
         }
 
         [HttpGet("{query}")]
-        public async Task<IEnumerable<Location>> Get(string query)
+        public IEnumerable<Location> Get(string query)
         {
-            return await Task.Run(() => _autocompleteService.GetSuggestions(query));
+            return _autocompleteService.GetSuggestions(query);
         }
     }
 }

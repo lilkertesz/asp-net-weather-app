@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WeatherApp.Data.Interfaces;
+using WeatherApp.Models;
 
-namespace WeatherApp.Models
+namespace WeatherApp.Data.Repositories
 {
     public class SQLObservationsRepository : IObservationRepository
     {
