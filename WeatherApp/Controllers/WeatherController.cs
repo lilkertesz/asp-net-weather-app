@@ -24,5 +24,17 @@ namespace WeatherApp.Controllers
         {
             return _weatherService.GetCurrentWeather(lat, lon);
         }
+
+        [HttpGet("daily/{lat}/{lon}")]
+        public IList<Weather> GetDailyForecast(double lat, double lon)
+        {
+            return _weatherService.GetDailyForecast(lat, lon);
+        }
+
+        [HttpGet("hourly/{lat}/{lon}")]
+        public IList<Weather> GetHourlyForecast(double lat, double lon)
+        {
+            return _weatherService.GetHourlyForecast(lat, lon);
+        }
     }
 }

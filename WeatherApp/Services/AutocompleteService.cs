@@ -41,7 +41,7 @@ namespace WeatherApp.Services
             return response;
         }
 
-        public Coordinate GetCoordinate(string locationId)
+        public Location GetCoordinates(string locationId)
         {
             string urlParameters = $"apikey={_apiKey}&locationid={locationId}";
             string url = _locationUrl + urlParameters;
@@ -50,10 +50,14 @@ namespace WeatherApp.Services
 
             JObject json = JObject.Parse(response);
 
-            return new Coordinate
+            return new Location
             {
+                LocationID = locationId,
                 Latitude = (double)json["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Latitude"],
                 Longitude = (double)json["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"],
+                City = (string)json["Response"]["View"][0]["Result"][0]["Location"]["Address"]["City"],
+                CountryCode = (string)json["Response"]["View"][0]["Result"][0]["Location"]["Address"]["Country"],
+                State = (string)json["Response"]["View"][0]["Result"][0]["Location"]["Address"]["State"],
             };
         }
 

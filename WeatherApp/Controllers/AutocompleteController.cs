@@ -21,5 +21,11 @@ namespace WeatherApp.Controllers
         {
             return _autocompleteService.GetSuggestions(query);
         }
+
+        [HttpGet("coord/{locationID}")]
+        public Location GetCoordinates(string locationID)
+        {
+            return _autocompleteService.GetCoordinates(locationID);
+        }
     }
 }

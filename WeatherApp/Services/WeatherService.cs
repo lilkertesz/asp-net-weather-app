@@ -78,7 +78,7 @@ namespace WeatherApp.Services
             var forecastDetails = JObject.Parse(response).GetValue("hourly");
 
             IList<Weather> forecasts = new List<Weather>();
-            for (int hour = 1; hour < 25; hour++)
+            for (int hour = 1; hour < 13; hour++)
             {
                 var weather = new Weather
                 {
@@ -112,7 +112,7 @@ namespace WeatherApp.Services
             var forecastDetails = JObject.Parse(response).GetValue("daily");
 
             IList<Weather> forecasts = new List<Weather>();
-            for (int day = 1; day < 8; day++)
+            for (int day = 1; day < 6; day++)
             {
                 var weather = new Weather
                 {
