@@ -24,7 +24,7 @@ namespace WeatherApp.Controllers
         [HttpPost("{lat}/{lon}")]
         public ICollection<Location> Post(double lat, double lon)
         {
-            var location = new Location { Latitude = lat, Longitude = lon };
+            var location = _autocompleteService.GetLocationFromCoord(lat, lon);
 
             _favoritesRepository.Create(location);
             return _favoritesRepository.Read();

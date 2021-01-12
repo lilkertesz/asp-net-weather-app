@@ -11,6 +11,8 @@ namespace WeatherApp.Data.Repositories
         {
             new Location
             {
+                City = "Budapest",
+                Country = "Hungary",
                 Latitude = 47.49973,
                 Longitude = 19.05508
             }

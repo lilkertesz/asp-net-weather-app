@@ -7,5 +7,6 @@ namespace WeatherApp.Services.Interfaces
     {
         IEnumerable<Location> GetSuggestions(string query);
         Location GetLocationDetails(string locationId);
+        Location GetLocationFromCoord(double lat, double lon);
     }
 }

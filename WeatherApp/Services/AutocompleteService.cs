@@ -13,12 +13,14 @@ namespace WeatherApp.Services
         readonly string _apiKey;
         readonly string _suggestionUrl;
         readonly string _locationUrl;
+        readonly string _revGeoCodeUrl;
 
         public AutocompleteService(IConfiguration configuration)
         {
             _apiKey = configuration["Autocomplete:ServiceApiKey"];
             _suggestionUrl = configuration.GetValue<string>("ApiBaseUrls:Autocomplete");
             _locationUrl = configuration.GetValue<string>("ApiBaseUrls:LocationDetail");
+            _revGeoCodeUrl = configuration.GetValue<string>("ApiBaseUrls:RevGeoCode");
         }
 
         private string GetRemoteData(string url)
@@ -86,6 +88,27 @@ namespace WeatherApp.Services
                 locations.Add(location);
             }
             return locations;
+        }
+
+        public Location GetLocationFromCoord(double lat, double lon)
+        {
+            string urlParameters = $"at={lat}%2C{lon}&lang=en-US&apikey={_apiKey}";
+            string url = _revGeoCodeUrl + urlParameters;
+
+            string response = GetRemoteData(url);
+
+            JObject json = JObject.Parse(response);
+
+            return new Location
+            {
+                Latitude = lat,
+                Longitude = lon,
+                City = (string)json["items"][0]["address"]["city"],
+                State = (string)json["items"][0]["address"]["state"],
+                CountryCode = (string)json["items"][0]["address"]["countryCode"],
+                Country = (string)json["items"][0]["address"]["countryName"],
+            };
+
         }
     }
 }
