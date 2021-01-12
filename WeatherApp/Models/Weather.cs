@@ -5,6 +5,7 @@
         public int Timestamp { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string City { get; set; }
         public int Temperature { get; set; }
         public int FeelsLike { get; set; }
         public string ShortDescription { get; set; }
