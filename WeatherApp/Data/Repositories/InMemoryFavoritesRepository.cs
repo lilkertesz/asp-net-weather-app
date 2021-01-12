@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WeatherApp.Data.Interfaces;
 using WeatherApp.Models;
 
@@ -7,7 +8,7 @@ namespace WeatherApp.Data.Repositories
     public class InMemoryFavoritesRepository : IFavoritesRepository
     {
 
-        private readonly ICollection<Location> _favorites = new List<Location>();
+        private readonly ICollection<Location> _favorites = new HashSet<Location>();
 
         public void Create(Location location)
         {
@@ -16,7 +17,11 @@ namespace WeatherApp.Data.Repositories
 
         public void Delete(Location location)
         {
-            _favorites.Remove(location);
+            var item = _favorites.FirstOrDefault(
+                x => x.Latitude == location.Latitude && 
+                x.Longitude == location.Longitude);
+
+            if (item != null) _favorites.Remove(item);
         }
 
         public ICollection<Location> Read()

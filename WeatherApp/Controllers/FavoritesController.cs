@@ -32,16 +32,10 @@ namespace WeatherApp.Controllers
         [HttpDelete("{lat}/{lon}")]
         public void Delete(double lat, double lon)
         {
-            var location = new Location { Latitude = lat, Longitude = lon };
+            var location = _autocompleteService.GetLocationFromCoord(lat, lon);
 
             _favoritesRepository.Delete(location);
         }
-
-        //[HttpGet("favorites")]
-        //public ICollection<Location> GetLocations()
-        //{
-        //    return _favoritesRepository.Read();
-        //}
 
         [HttpGet("locations")]
         public IList<string> GetLocationCoords()
@@ -56,7 +50,6 @@ namespace WeatherApp.Controllers
 
             return coords;
         }
-
 
         [HttpGet()]
         public IList<Weather> GetWeatherForFavorites()
