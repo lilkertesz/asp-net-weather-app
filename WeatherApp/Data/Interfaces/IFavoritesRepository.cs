@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using WeatherApp.Models;
 
 namespace WeatherApp.Data.Interfaces
 {
     public interface IFavoritesRepository
     {
-        void Create(string city);
-        ICollection<string> Read();
-        void Delete(string city);
+        void Create(Location location);
+        ICollection<Location> Read();
+        void Delete(Location location);
     }
 }

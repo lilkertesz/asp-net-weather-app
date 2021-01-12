@@ -41,7 +41,7 @@ namespace WeatherApp.Services
             return response;
         }
 
-        public Location GetCoordinates(string locationId)
+        public Location GetLocationDetails(string locationId)
         {
             string urlParameters = $"apikey={_apiKey}&locationid={locationId}";
             string url = _locationUrl + urlParameters;

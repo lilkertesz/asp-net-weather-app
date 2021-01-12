@@ -1,29 +1,38 @@
 ﻿using System.Collections.Generic;
 using WeatherApp.Data.Interfaces;
+using WeatherApp.Models;
 
 namespace WeatherApp.Data.Repositories
 {
     public class InMemoryFavoritesRepository : IFavoritesRepository
     {
-        IList<string> _favorites = new List<string>() { "Vienna", "Vancouver" };
 
-        public void Create(string city)
+        private readonly ICollection<Location> _favorites = new List<Location>() 
         {
-            if (!_favorites.Contains(city))
+            new Location
             {
-                _favorites.Add(city);
+                Latitude = 47.49973,
+                Longitude = 19.05508
+            }
+        };
+
+        public void Create(Location location)
+        {
+            if (!_favorites.Contains(location))
+            {
+                _favorites.Add(location);
             }
         }
 
-        public void Delete(string city)
+        public void Delete(Location location)
         {
-            if (_favorites.Contains(city))
+            if (_favorites.Contains(location))
             {
-                _favorites.Remove(city);
+                _favorites.Remove(location);
             }
         }
 
-        ICollection<string> IFavoritesRepository.Read()
+        public ICollection<Location> Read()
         {
             return _favorites;
         }

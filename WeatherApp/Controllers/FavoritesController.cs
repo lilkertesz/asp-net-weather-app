@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using WeatherApp.Data.Interfaces;
 using WeatherApp.Models;
 using WeatherApp.Services.Interfaces;
@@ -11,36 +10,38 @@ namespace WeatherApp.Controllers
     [Route("api/[controller]")]
     public class FavoritesController : ControllerBase
     {
-        readonly IWeatherService _currentWeatherService;
-        IFavoritesRepository _favoritesRepository;
+        private IWeatherService _currentWeatherService;
+        private IFavoritesRepository _favoritesRepository;
+        private IAutocompleteService _autocompleteService;
 
-        public FavoritesController(IWeatherService currentWeatherService, IFavoritesRepository favoritesRepository)
+        public FavoritesController(IWeatherService currentWeatherService, IFavoritesRepository favoritesRepository, IAutocompleteService autocompleteService)
         {
             _currentWeatherService = currentWeatherService;
             _favoritesRepository = favoritesRepository;
+            _autocompleteService = autocompleteService;
         }
         
-        [HttpPost("{city}")]
-        public void Post(string city)
+        [HttpPost("{lat}/{lon}")]
+        public ICollection<Location> Post(double lat, double lon)
         {
-            _favoritesRepository.Create(city);
+            var location = new Location { Latitude = lat, Longitude = lon };
+
+            _favoritesRepository.Create(location);
+            return _favoritesRepository.Read();
         }
 
-        [HttpDelete("{city}")]
-        public void Delete(string city)
+        [HttpDelete("{locationID}")]
+        public void Delete(string locationID)
         {
-            _favoritesRepository.Delete(city);
+            var location = _autocompleteService.GetLocationDetails(locationID);
+
+            _favoritesRepository.Delete(location);
         }
 
-        [HttpGet("cities")]
-        public Weather[] GetFavorites()
+        [HttpGet()]
+        public ICollection<Location> GetLocations()
         {
-            IList<Weather> favorites = new List<Weather>();
-            foreach (var city in _favoritesRepository.Read())
-            {
-                //favorites.Add(_currentWeatherService.GetCurrentWeather(city));
-            }
-            return favorites.ToArray();
+            return _favoritesRepository.Read();
         }
     }
 }

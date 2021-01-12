@@ -6,6 +6,6 @@ namespace WeatherApp.Services.Interfaces
     public interface IAutocompleteService
     {
         IEnumerable<Location> GetSuggestions(string query);
-        Location GetCoordinates(string locationId);
+        Location GetLocationDetails(string locationId);
     }
 }

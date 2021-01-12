@@ -25,7 +25,7 @@ namespace WeatherApp.Controllers
         [HttpGet("coord/{locationID}")]
         public Location GetCoordinates(string locationID)
         {
-            return _autocompleteService.GetCoordinates(locationID);
+            return _autocompleteService.GetLocationDetails(locationID);
         }
     }
 }
