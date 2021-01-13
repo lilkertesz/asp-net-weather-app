@@ -13,7 +13,8 @@ namespace WeatherApp.Data.Repositories
             new Observation
             {
                 ID = 1,
-                City = "Budapest",
+                Latitude = 47.49973,
+                Longitude = 19.05508,
                 TimeStamp = new DateTime(2020, 11, 14, 9, 28, 0),
                 UserName = "User",
                 Description = "It is very hot and sunny here"
@@ -21,7 +22,8 @@ namespace WeatherApp.Data.Repositories
             new Observation
             {
                 ID = 2,
-                City = "Budapest",
+                Latitude = 47.49973,
+                Longitude = 19.05508,
                 TimeStamp = new DateTime(2020, 10, 14, 9, 28, 0),
                 UserName = "Jane",
                 Description = "Freezing cold"
@@ -29,7 +31,8 @@ namespace WeatherApp.Data.Repositories
             new Observation
             {
                 ID = 3,
-                City = "Madrid",
+                Latitude = 40.41956,
+                Longitude = -3.69196,
                 TimeStamp = new DateTime(2020, 6, 14, 9, 28, 0),
                 UserName = "Pablo",
                 Description = "Beach time!"
@@ -46,7 +49,7 @@ namespace WeatherApp.Data.Repositories
 
         public async Task<IEnumerable<Observation>> Read()
         {
-            return _observations;
+            return await Task.FromResult(_observations);
         }
 
         // TODO

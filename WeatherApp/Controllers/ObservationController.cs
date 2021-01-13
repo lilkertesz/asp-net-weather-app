@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WeatherApp.Data.Interfaces;
 using WeatherApp.Models;
@@ -20,46 +23,32 @@ namespace WeatherApp.Controllers
             _observationRepository = observationRepository;
         }
 
-        public object Observation { get; private set; }
-
         [HttpGet("observations")]
         public async Task<IEnumerable<Observation>> GetAllObservations()
         {
-            var bob = await _observationRepository.Read();
-            return bob;
+            var observations = await _observationRepository.Read();
+            return observations;
         }
 
-        [HttpGet("{city}")]
-        public async Task<IEnumerable<Observation>> GetObservationsByCity(string city)
+        [HttpGet("{lat}/{lon}")]
+        public async Task<IEnumerable<Observation>> GetObservationsByCoords(double lat, double lon)
         {
             var observations = await _observationRepository.Read();
-            var observationsByCity =
+            var observationsByCoords =
                 from observation in observations
-                where observation.City.Equals(city)
+                where observation.Latitude == lat && observation.Longitude == lon
                 select observation;
 
-            return observationsByCity.ToArray();
+            return observationsByCoords.ToArray();
         }
 
-        [HttpPost("{city}")]
-        [Consumes("application/x-www-form-urlencoded")]
-        public void Post([FromForm] IFormCollection formCollection, string city)
+        [HttpPost()]
+        public Observation Post([FromForm] Observation obs)
         {
-            string userName = formCollection[nameof(userName)];
-            string description = formCollection[nameof(description)];
-            //string city = formCollection[nameof(city)];
-
-            Observation obs = new Observation()
-            {
-                TimeStamp = DateTime.Now,
-                City = city,
-                UserName = userName,
-                Description = description,
-            };
-
+            obs.TimeStamp = DateTime.Now;
             _observationRepository.Create(obs);
+            return obs;
         }
 
-        // TODO post, put, delete http requests
     }
 }
