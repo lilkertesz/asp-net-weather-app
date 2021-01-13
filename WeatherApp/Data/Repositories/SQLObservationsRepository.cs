@@ -16,17 +16,18 @@ namespace WeatherApp.Data.Repositories
         }
         public async Task Create(Observation observation)
         {
-            throw new NotImplementedException();
+            _context.Add(observation);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Observation>> Read()
+        {
+            return await Task.FromResult(_context.Observations);
         }
 
         public async Task Delete(long observationId)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Observation>> Read()
-        {
-            return _context.Observations;
         }
 
         public async Task Update(long observationId)

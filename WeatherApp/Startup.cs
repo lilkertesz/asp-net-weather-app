@@ -34,10 +34,10 @@ namespace WeatherApp
                                   });
             });
 
-            services.AddSingleton<IWeatherService, WeatherService>();
-            services.AddSingleton<IAutocompleteService, AutocompleteService>();
+            services.AddTransient<IWeatherService, WeatherService>();
+            services.AddTransient<IAutocompleteService, AutocompleteService>();
+            services.AddScoped<IObservationRepository, SQLObservationsRepository>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
-            services.AddSingleton<IObservationRepository, InMemoryObservationsRepository>();
             services.AddControllers();
             services.AddDbContextPool<ObservationsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));

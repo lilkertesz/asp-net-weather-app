@@ -25,11 +25,8 @@ namespace WeatherApp.Tests.Controllers
         public void GetCurrentWeatherForCoordinates()
         {
             var weather = new Weather();
-
             _weatherService.GetCurrentWeather(20, 10).Returns(weather);
-
             var result = _weatherController.GetCurrentWeather(20, 10);
-
             Assert.AreEqual(result, weather);
         }
 
