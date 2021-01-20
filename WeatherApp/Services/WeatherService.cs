@@ -11,8 +11,8 @@ namespace WeatherApp.Services
 {
     public class WeatherService : IWeatherService
     {
-        readonly string _apiKey;
-        readonly string _weatherUrl;
+        private readonly string _apiKey;
+        private readonly string _weatherUrl;
 
         public WeatherService(IConfiguration configuration)
         {
@@ -50,7 +50,7 @@ namespace WeatherApp.Services
 
             Weather weather = new Weather
             {
-                Timestamp = (int)json["current"]["dt"],
+                Timestamp = (int)json["current"]["dt"] + (int)json["timezone_offset"] - 3600,
                 Longitude = (double)json["lon"],
                 Latitude = (double)json["lat"],
                 Temperature = (int)json["current"]["temp"],
@@ -71,10 +71,11 @@ namespace WeatherApp.Services
 
         public IList<Weather> GetHourlyForecast(double lat, double lon)
         {
-            string urlParameters = $"appid={_apiKey}&lat={lat}&lon={lon}&exclude=minutely,current,daily,alerts&units=metric";
+            string urlParameters = $"appid={_apiKey}&lat={lat}&lon={lon}&exclude=minutely,daily,alerts&units=metric";
             string url = _weatherUrl + urlParameters;
 
             string response = GetRemoteData(url);
+            var timestamp = JObject.Parse(response).GetValue("timezone_offset");
             var forecastDetails = JObject.Parse(response).GetValue("hourly");
 
             IList<Weather> forecasts = new List<Weather>();
@@ -82,7 +83,7 @@ namespace WeatherApp.Services
             {
                 var weather = new Weather
                 {
-                    Timestamp = (int)forecastDetails[hour]["dt"],
+                    Timestamp = (int)forecastDetails[hour]["dt"] + (int)timestamp - 3600,
                     Longitude = lon,
                     Latitude = lat,
                     Temperature = (int)forecastDetails[hour]["temp"],
