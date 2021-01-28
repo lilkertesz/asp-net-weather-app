@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using WeatherApp.Models;
 
 namespace WeatherApp
 {
-    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class WeatherDbContext : IdentityDbContext
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options)
+        public WeatherDbContext(DbContextOptions<WeatherDbContext> options) : base(options)
         {
         }
 
@@ -14,6 +15,7 @@ namespace WeatherApp
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Observation>().HasData(
             new Observation
             {

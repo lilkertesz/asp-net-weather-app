@@ -9,6 +9,7 @@ using WeatherApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using WeatherApp.Data.Interfaces;
 using WeatherApp.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace WeatherApp
 {
@@ -39,8 +40,10 @@ namespace WeatherApp
             services.AddScoped<IObservationRepository, SQLObservationsRepository>();
             services.AddSingleton<IFavoritesRepository, InMemoryFavoritesRepository>();
             services.AddControllers();
-            services.AddDbContextPool<DbContext>(options =>
+            services.AddDbContextPool<WeatherDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<WeatherDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +61,8 @@ namespace WeatherApp
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
