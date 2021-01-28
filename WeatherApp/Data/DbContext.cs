@@ -4,9 +4,9 @@ using WeatherApp.Models;
 
 namespace WeatherApp
 {
-    public class ObservationsContext : DbContext
+    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public ObservationsContext(DbContextOptions<ObservationsContext> options) : base(options)
+        public DbContext(DbContextOptions<DbContext> options) : base(options)
         {
         }
 

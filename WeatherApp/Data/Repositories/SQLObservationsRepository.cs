@@ -8,9 +8,9 @@ namespace WeatherApp.Data.Repositories
 {
     public class SQLObservationsRepository : IObservationRepository
     {
-        private readonly ObservationsContext _context;
+        private readonly DbContext _context;
 
-        public SQLObservationsRepository(ObservationsContext context)
+        public SQLObservationsRepository(DbContext context)
         {
             _context = context;
         }

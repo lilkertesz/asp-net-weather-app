@@ -8,7 +8,7 @@ using WeatherApp;
 
 namespace WeatherApp.Migrations
 {
-    [DbContext(typeof(ObservationsContext))]
+    [DbContext(typeof(DbContext))]
     partial class ObservationsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

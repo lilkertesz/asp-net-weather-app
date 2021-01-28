@@ -9,7 +9,7 @@ using WeatherApp;
 
 namespace WeatherApp.Migrations
 {
-    [DbContext(typeof(ObservationsContext))]
+    [DbContext(typeof(DbContext))]
     [Migration("20210113212854_InitialCreate")]
     partial class InitialCreate
     {
