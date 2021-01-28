@@ -8,7 +8,8 @@ using WeatherApp.Models;
 
 namespace WeatherApp.Controllers
 {
-
+    [ApiController]
+    [Route("api/[controller]")]
     public class AccountController
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -21,13 +22,14 @@ namespace WeatherApp.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpPost]
-        public async Task Register(User model)
+        [HttpPost("register")]
+        public async Task<IdentityUser> Register([FromForm] User model)
         {
             var user = new IdentityUser
             {
-                UserName = model.Email,
+                UserName = model.Username,
                 Email = model.Email,
+                PasswordHash = model.Password,
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -35,17 +37,9 @@ namespace WeatherApp.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return RedirectToAction("index", "Home");
             }
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error.Description);
-            }
-
-            ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
+            return user;
         }
     }
 }

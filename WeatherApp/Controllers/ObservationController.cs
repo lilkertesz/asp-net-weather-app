@@ -43,10 +43,10 @@ namespace WeatherApp.Controllers
         }
 
         [HttpPost()]
-        public Observation Post([FromForm] Observation obs)
+        public async Task<Observation> Post([FromForm] Observation obs)
         {
             obs.TimeStamp = DateTime.Now;
-            _observationRepository.Create(obs);
+            await _observationRepository.Create(obs);
             return obs;
         }
 
