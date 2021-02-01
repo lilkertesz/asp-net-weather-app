@@ -23,7 +23,7 @@ namespace WeatherApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IEnumerable<IdentityError>> Register([FromForm] User model)
+        public async Task Register([FromForm] User model)
         {
             var user = new IdentityUser
             {
@@ -38,8 +38,6 @@ namespace WeatherApp.Controllers
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
             }
-
-            return result.Errors;
         }
     }
 }
