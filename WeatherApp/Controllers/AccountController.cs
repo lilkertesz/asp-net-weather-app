@@ -10,7 +10,7 @@ namespace WeatherApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AccountController
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -23,7 +23,7 @@ namespace WeatherApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IdentityUser> Register([FromForm] User model)
+        public async Task<IEnumerable<IdentityError>> Register([FromForm] User model)
         {
             var user = new IdentityUser
             {
@@ -33,13 +33,13 @@ namespace WeatherApp.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-
+            
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
             }
 
-            return user;
+            return result.Errors;
         }
     }
 }
