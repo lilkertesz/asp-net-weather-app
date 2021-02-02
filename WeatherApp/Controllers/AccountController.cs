@@ -39,5 +39,23 @@ namespace WeatherApp.Controllers
                 await _signInManager.SignInAsync(user, isPersistent: false);
             }
         }
+
+        [HttpPost("login")]
+        public async Task<Microsoft.AspNetCore.Identity.SignInResult> Login([FromForm] User model)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+            if (signInResult.Succeeded)
+            {
+                Console.WriteLine("succeeded");
+            }
+
+            return signInResult;
+        }
+
+        [HttpPost("logout")]
+        public async void Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }
