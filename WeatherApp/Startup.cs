@@ -42,7 +42,15 @@ namespace WeatherApp
             services.AddControllers();
             services.AddDbContextPool<WeatherDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WeatherDatabase")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(options => 
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = false;
+            })
                     .AddEntityFrameworkStores<WeatherDbContext>();
         }
 
